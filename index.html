@@ -31,7 +31,7 @@
 
     </div>
 
-    <nav aria-label="Primary navigation">
+    <nav id="primary-navigation" aria-label="Primary navigation">
 
         <a href="#home">Home</a>
 
@@ -43,7 +43,7 @@
 
     </nav>
 
-    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -89,7 +89,7 @@
 
             </a>
 
-            <a href="#manufacturing" class="secondary-btn">
+            <a href="#factory" class="secondary-btn">
 
                 Our Process
 
@@ -102,7 +102,7 @@
 
         <div class="jersey-card">
 
-            <img src="img/jersey.png" alt="Jersey">
+            <img src="img/jersey.png" alt="Custom Cniv fashion jersey">
 
         </div>
 
@@ -611,7 +611,7 @@
 
         <div class="factory-item large">
 
-            <img src="img/Fatory.png">
+            <img src="img/Fatory.png" alt="Cniv fashion manufacturing facility" loading="lazy">
 
             <div class="overlay">
 
@@ -625,7 +625,7 @@
 
         <div class="factory-item">
 
-            <img src="img/printing.png">
+            <img src="img/printing.png" alt="Sublimation printing process" loading="lazy">
 
             <div class="overlay">
 
@@ -637,7 +637,7 @@
 
         <div class="factory-item">
 
-            <img src="img/stitching.png">
+            <img src="img/stitching.png" alt="Precision garment stitching" loading="lazy">
 
             <div class="overlay">
 
@@ -650,7 +650,7 @@
 
         <div class="factory-item">
 
-            <img src="img/order.png">
+            <img src="img/order.png" alt="Packed customer orders" loading="lazy">
 
             <div class="overlay">
 
@@ -1054,15 +1054,15 @@ premium custom sportswear.
 
 <div class="contact-right">
 
-<form>
+<form id="contact-form">
 
-<input type="text" placeholder="Your Name">
+<input type="text" name="name" placeholder="Your Name" required>
 
-<input type="email" placeholder="Email Address">
+<input type="email" name="email" placeholder="Email Address" required>
 
-<input type="text" placeholder="Company">
+<input type="text" name="company" placeholder="Company">
 
-<select>
+<select name="product" required>
 
 <option>Select Product</option>
 
@@ -1076,9 +1076,9 @@ premium custom sportswear.
 
 </select>
 
-<textarea placeholder="Tell us about your project"></textarea>
+<textarea name="project" placeholder="Tell us about your project" required></textarea>
 
-<button>
+<button type="submit">
 
 Request Quote →
 
@@ -1306,9 +1306,9 @@ Subscribe to our newsletter
 
 <div>
 
-<input placeholder="Email Address">
+<input type="email" placeholder="Email Address" aria-label="Email address" required>
 
-<button>
+<button type="button">
 
 Subscribe
 

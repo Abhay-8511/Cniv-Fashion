@@ -1,348 +1,124 @@
-const cards = document.querySelectorAll(".floating");
+(() => {
+  "use strict";
 
-document.addEventListener("mousemove", (e) => {
+  const navbar = document.querySelector(".navbar");
+  const navToggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".navbar nav");
 
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const setNavigation = (open) => {
+    if (!navbar || !navToggle) return;
+    navbar.classList.toggle("active", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+  };
 
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-
-    cards.forEach((card, index) => {
-
-        card.style.transform = `translate(${x * (index + 1)}px, ${y * (index + 1)}px)`;
-
+  if (navToggle && navbar) {
+    navToggle.addEventListener("click", () => {
+      setNavigation(!navbar.classList.contains("active"));
     });
 
-});
-
-/* Bento Tilt Effect */
-
-document.querySelectorAll(".card").forEach((card) => {
-
-    card.addEventListener("mousemove", (e) => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = e.clientX - rect.left;
-
-        const y = e.clientY - rect.top;
-
-        const rotateX = ((y / rect.height) - 0.5) * -8;
-        const rotateY = ((x / rect.width) - 0.5) * 8;
-
-        card.style.transform = `
-            perspective(900px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            translateY(-8px)
-        `;
-
+    nav?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setNavigation(false));
     });
 
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform = "";
-
+    document.addEventListener("click", (event) => {
+      if (navbar.classList.contains("active") && !navbar.contains(event.target)) {
+        setNavigation(false);
+      }
     });
 
-});
-
-const featureCards=document.querySelectorAll(".feature-card");
-
-featureCards.forEach(card=>{
-
-card.addEventListener("mouseenter",()=>{
-
-featureCards.forEach(c=>c.classList.remove("active"));
-
-card.classList.add("active");
-
-});
-
-});
-
-/* Product Hover Glow */
-
-document.querySelectorAll(".product-image").forEach((image)=>{
-
-image.addEventListener("mousemove",(e)=>{
-
-const rect=image.getBoundingClientRect();
-
-const x=e.clientX-rect.left;
-
-const y=e.clientY-rect.top;
-
-image.style.background=`
-radial-gradient(circle at ${x}px ${y}px,
-rgba(59,130,246,.18),
-rgba(255,255,255,.05) 55%)
-`;
-
-});
-
-image.addEventListener("mouseleave",()=>{
-
-image.style.background="rgba(255,255,255,.05)";
-
-});
-
-});
-
-/* Factory Tilt */
-
-document.querySelectorAll(".factory-item").forEach(card=>{
-
-card.addEventListener("mousemove",(e)=>{
-
-const rect=card.getBoundingClientRect();
-
-const x=e.clientX-rect.left;
-
-const y=e.clientY-rect.top;
-
-card.style.transform=`
-perspective(900px)
-rotateX(${-(y-rect.height/2)/35}deg)
-rotateY(${(x-rect.width/2)/35}deg)
-`;
-
-});
-
-card.addEventListener("mouseleave",()=>{
-
-card.style.transform="perspective(900px) rotateX(0) rotateY(0)";
-
-});
-
-});
-/* Portfolio Filter */
-
-const filterButtons = document.querySelectorAll(".portfolio-filter button");
-
-filterButtons.forEach(button=>{
-
-button.addEventListener("click",()=>{
-
-filterButtons.forEach(btn=>btn.classList.remove("active"));
-
-button.classList.add("active");
-
-});
-
-});
-
-/* Portfolio Tilt */
-
-document.querySelectorAll(".portfolio-item").forEach(item=>{
-
-item.addEventListener("mousemove",(e)=>{
-
-const rect=item.getBoundingClientRect();
-
-const x=e.clientX-rect.left;
-
-const y=e.clientY-rect.top;
-
-const rotateX=-(y-rect.height/2)/30;
-
-const rotateY=(x-rect.width/2)/30;
-
-item.style.transform=`perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-});
-
-item.addEventListener("mouseleave",()=>{
-
-item.style.transform="perspective(900px) rotateX(0) rotateY(0)";
-
-});
-
-});
-
-/*================================*/
-/* Testimonial Slider */
-/*================================*/
-
-const slides=document.querySelectorAll(".testimonial-card");
-
-let current=0;
-
-function showSlide(index){
-
-slides.forEach((slide,i)=>{
-
-slide.style.display=i===index?"block":"none";
-
-});
-
-}
-
-showSlide(current);
-
-document.querySelector(".next").onclick=()=>{
-
-current=(current+1)%slides.length;
-
-showSlide(current);
-
-};
-
-document.querySelector(".prev").onclick=()=>{
-
-current=(current-1+slides.length)%slides.length;
-
-showSlide(current);
-
-};
-
-/*================================*/
-/* Counter Animation */
-/*================================*/
-
-const counters=document.querySelectorAll(".counter");
-
-const observer=new IntersectionObserver(entries=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-const counter=entry.target;
-
-const target=+counter.dataset.target;
-
-let count=0;
-
-const speed=target/120;
-
-const update=()=>{
-
-count+=speed;
-
-if(count<target){
-
-counter.innerText=Math.floor(count).toLocaleString();
-
-requestAnimationFrame(update);
-
-}else{
-
-counter.innerText=target.toLocaleString()+"+";
-
-}
-
-};
-
-update();
-
-observer.unobserve(counter);
-
-}
-
-});
-
-});
-
-counters.forEach(counter=>observer.observe(counter));
-
-/*================================*/
-/* FAQ */
-/*================================*/
-
-const faqItems=document.querySelectorAll(".faq-item");
-
-faqItems.forEach(item=>{
-
-const question=item.querySelector(".faq-question");
-
-question.onclick=()=>{
-
-faqItems.forEach(f=>{
-
-if(f!==item){
-
-f.classList.remove("active");
-
-}
-
-});
-
-item.classList.toggle("active");
-
-};
-
-});
-/*===============================*/
-/* Back To Top */
-/*===============================*/
-
-const topButton=document.createElement("button");
-
-topButton.innerHTML="↑";
-
-topButton.className="top-btn";
-
-document.body.appendChild(topButton);
-
-window.addEventListener("scroll",()=>{
-
-topButton.style.opacity=window.scrollY>600?1:0;
-
-});
-
-topButton.onclick=()=>{
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-};
-
-/*================================*/
-/* Mobile navigation */
-/*================================*/
-const navToggle = document.querySelector('.nav-toggle');
-const navbar = document.querySelector('.navbar');
-
-if(navToggle){
-    navToggle.addEventListener('click', () => {
-        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-        navToggle.setAttribute('aria-expanded', String(!expanded));
-        navbar.classList.toggle('active');
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setNavigation(false);
     });
-}
 
-const sections = document.querySelectorAll('section');
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if(entry.isIntersecting){
-            entry.target.classList.add('in-view');
-        }
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 700) setNavigation(false);
     });
-}, { threshold: 0.18 });
+  }
 
-sections.forEach(section => sectionObserver.observe(section));
+  const faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach((item) => {
+    const question = item.querySelector(".faq-question");
+    if (!question) return;
+    question.setAttribute("role", "button");
+    question.setAttribute("tabindex", "0");
+    question.setAttribute("aria-expanded", String(item.classList.contains("active")));
 
-/*===============================*/
-/* Scroll Progress */
-/*===============================*/
+    const toggleFaq = () => {
+      const willOpen = !item.classList.contains("active");
+      faqItems.forEach((other) => {
+        other.classList.remove("active");
+        other.querySelector(".faq-question")?.setAttribute("aria-expanded", "false");
+      });
+      item.classList.toggle("active", willOpen);
+      question.setAttribute("aria-expanded", String(willOpen));
+    };
 
-const progress=document.createElement("div");
+    question.addEventListener("click", toggleFaq);
+    question.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggleFaq();
+      }
+    });
+  });
 
-progress.className="progress";
+  const slides = [...document.querySelectorAll(".testimonial-card")];
+  const previous = document.querySelector(".prev");
+  const next = document.querySelector(".next");
+  let currentSlide = 0;
+  const showSlide = (index) => {
+    if (!slides.length) return;
+    currentSlide = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.style.display = i === currentSlide ? "block" : "none";
+    });
+  };
+  if (slides.length) {
+    showSlide(0);
+    previous?.addEventListener("click", () => showSlide(currentSlide - 1));
+    next?.addEventListener("click", () => showSlide(currentSlide + 1));
+  }
 
-document.body.appendChild(progress);
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reducedMotion && "IntersectionObserver" in window) {
+    const counters = document.querySelectorAll(".counter");
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const counter = entry.target;
+        const target = Number(counter.dataset.target) || 0;
+        const started = performance.now();
+        const duration = 900;
+        const render = (now) => {
+          const progress = Math.min((now - started) / duration, 1);
+          counter.textContent = Math.round(target * progress).toLocaleString() + "+";
+          if (progress < 1) requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
+        observer.unobserve(counter);
+      });
+    }, { threshold: 0.35 });
+    counters.forEach((counter) => counterObserver.observe(counter));
+  }
 
-window.addEventListener("scroll",()=>{
+  const topButton = document.createElement("button");
+  topButton.type = "button";
+  topButton.className = "top-btn";
+  topButton.setAttribute("aria-label", "Back to top");
+  topButton.textContent = "↑";
+  document.body.append(topButton);
 
-const total=document.documentElement.scrollHeight-window.innerHeight;
+  const progress = document.createElement("div");
+  progress.className = "progress";
+  document.body.append(progress);
 
-const percent=window.scrollY/total;
-
-progress.style.width=percent*100+"%";
-
-});
+  const updateScrollUi = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = scrollable > 0 ? `${(window.scrollY / scrollable) * 100}%` : "0";
+    topButton.style.opacity = window.scrollY > 600 ? "1" : "0";
+    topButton.style.pointerEvents = window.scrollY > 600 ? "auto" : "none";
+  };
+  window.addEventListener("scroll", updateScrollUi, { passive: true });
+  updateScrollUi();
+  topButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+})();
