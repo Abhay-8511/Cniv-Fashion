@@ -7,7 +7,7 @@ a{color:inherit}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 section{width:100%;padding:clamp(4.5rem,10vw,10rem) max(1.25rem,8vw);position:relative}
-.bg-gradient{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 15% 15%,#2563eb4d,transparent 30rem),radial-gradient(circle at 85% 42%,#10b98129,transparent 28rem),radial-gradient(circle at 50% 95%,#1d4ed82b,transparent 30rem)}
+.bg-gradient{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 15% 15%,#0000004d,transparent 30rem),radial-gradient(circle at 85% 42%,#00000029,transparent 28rem),radial-gradient(circle at 50% 95%,#0000002b,transparent 30rem)}
 
 /* Navigation */
 .navbar{position:fixed;z-index:1000;top:1rem;left:50%;transform:translateX(-50%);width:min(92%,1400px);height:4.6rem;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;background:rgba(7,17,31,.86);border:1px solid var(--line);border-radius:1.25rem;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
@@ -36,7 +36,13 @@ nav a:hover,nav a:focus-visible{color:#fff}
 .hero-right{position:relative;min-width:0;display:grid;place-items:center}.jersey-card{width:min(100%,27rem);aspect-ratio:1/1;display:grid;place-items:center;padding:clamp(1rem,4vw,2.25rem);border:1px solid var(--line);border-radius:2rem;background:rgba(255,255,255,.08);box-shadow:0 30px 80px rgba(0,0,0,.28);backdrop-filter:blur(22px)}
 .jersey-card img{width:100%;max-width:18rem;object-fit:contain;animation:float 5s ease-in-out infinite}@keyframes float{50%{transform:translateY(-.8rem)}}
 .floating{position:absolute;z-index:1;max-width:9rem;padding:.85rem 1rem;border:1px solid var(--line);border-radius:1rem;background:rgba(7,17,31,.76);backdrop-filter:blur(18px);font-size:.8rem}.floating strong{display:block;color:#fff;font-family:"Space Grotesk",sans-serif;font-size:1.35rem}.stat1{top:7%;left:-5%}.stat2{right:-5%;bottom:22%}.stat3{bottom:3%;left:5%}
+/* Standalone full-screen banner: the image is a foreground element, not a background. */
+.hero{display:flex;flex-direction:column;align-items:center;gap:clamp(3rem,8vw,6rem);padding:0 0 clamp(4.5rem,10vw,9rem);min-height:0px}
+.hero-banner{order:0;align-self:stretch;justify-self:auto;width:100%;max-width:none;height:100vh;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;background:#050b16}
+.hero-banner img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-left{order:1;width:min(100% - 2.5rem,52rem);max-width:52rem;text-align:center}.hero h1{max-width:none}.hero p{margin-inline:auto}.hero-buttons{justify-content:center}
 
+@media (max-width:700px){.hero{gap:3.5rem;padding-bottom:4.5rem}.hero-banner{height:100svh;padding-top:4.8rem;background:#050b16}.hero-banner img{object-fit:contain;object-position:center}.hero-left{width:calc(100% - 2.5rem)}.hero h1{font-size:clamp(2.2rem,10.5vw,3.05rem)}}
 /* Shared cards and content */
 .trusted{padding-top:1.5rem}.trusted-banner{max-width:var(--max);margin:auto;padding:1.5rem;border:1px solid var(--line);border-radius:1.75rem;background:var(--surface);backdrop-filter:blur(16px)}
 .section-title-small,.featured-heading span,.factory-heading span,.testimonial-heading span,.cta>span,.heading span{display:block;color:var(--muted);font-size:.75rem;letter-spacing:.18em;text-align:center}.trusted-banner .section-title-small{margin-bottom:1.2rem}.trusted-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.75rem}.trusted-grid .logo-item{padding:1rem .5rem;border:1px solid rgba(255,255,255,.08);border-radius:1rem;text-align:center;color:var(--muted);font-size:.85rem}
